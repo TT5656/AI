@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,5 +32,14 @@ public class Camera2Fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        openCamera();
+    }
+
+    private void openCamera() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+            return;
+        }
     }
 }
